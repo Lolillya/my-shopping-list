@@ -18,9 +18,9 @@ main {
   justify-content: center;
   flex-direction: column;
   max-width: 440px;
-  max-height: 100vh;
+  /* max-height: auto; */
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .input--container {
@@ -73,7 +73,7 @@ main {
   justify-content: center;
   overflow: scroll;
   scrollbar-width: none;
-  height: 80vh;
+  height: 100vh;
   width: 100%;
 }
 
@@ -214,7 +214,7 @@ main {
 .main--container {
   display: flex;
   flex-direction: column;
-  max-height: 75vh;
+  max-height: 90vh;
 }
 
 .alt--sidenote--container {

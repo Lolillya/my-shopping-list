@@ -7,6 +7,10 @@ import 'firebase/auth'
 import { initializeApp } from 'firebase/app'
 import { getDatabase, ref, push, onValue, remove, set, update } from "firebase/database"
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons"
+import { faCaretUp } from "@fortawesome/free-solid-svg-icons"
+
 
 export default function MainContent() {
     //------------------------------------------------------
@@ -18,9 +22,8 @@ export default function MainContent() {
     }
 
     const app = initializeApp(appSettings)
-    const database = getDatabase()
+    const database = getDatabase(app)
     const shoppingListDB = ref(database, `shoppingList/`)
-
 
     //-------------------------------------------------------
     //-------------------------------------------------------
@@ -31,7 +34,7 @@ export default function MainContent() {
     const [hasValue, setHasValue] = React.useState()
 
     const shopListElements = shopList.map(list =>
-        <li id='list' key={list.key} style={list.checked ? {backgroundColor: "#b4f7a3"} : {}}>
+        <li id='list' key={list.key} style={list.checked ? { backgroundColor: "#b4f7a3" } : {}}>
 
             <section id="itembox--container">
                 <p id="item--name">{list.name}</p>
@@ -45,23 +48,25 @@ export default function MainContent() {
                 </div>
             </section>
 
-            <section className="alt--sidenote--container">
-                <div id="alt">
-                    <h5 style={{ marginBottom: "10px" }}>Alternatives</h5>
-                    <h6 style={{ margin: 0 }}>No alternatives listed.</h6>
-                </div>
+            {list.dropdownShown &&
+                <section className="alt--sidenote--container">
+                    <div id="alt">
+                        <h5 style={{ marginBottom: "10px" }}>Alternatives</h5>
+                        <h6 style={{ margin: 0 }}>No alternatives listed.</h6>
+                    </div>
 
-                <div id="sidenote">
-                    <h5 style={{ marginBottom: "10px" }}>Sidenotes</h5>
-                    <h6 style={{ margin: 0 }}>No sidenotes posted</h6>
-                </div>
-            </section>
+                    <div id="sidenote">
+                        <h5 style={{ marginBottom: "10px" }}>Sidenotes</h5>
+                        <h6 style={{ margin: 0 }}>No sidenotes posted</h6>
+                    </div>
+                </section>}
+
 
             <div id="list--dropdown--button">
-                ...
+                {list.dropdownShown ? 
+                <FontAwesomeIcon icon={faCaretUp} onClick={() => showDropdown(list.key, list.dropdownShown)} /> : 
+                <FontAwesomeIcon icon={faCaretDown} onClick={() => showDropdown(list.key, list.dropdownShown)} /> }
             </div>
-
-
         </li>
     )
 
@@ -78,13 +83,16 @@ export default function MainContent() {
         })
     }, [])
 
+    function showDropdown(key, dropdown) {
+        update(ref(database, 'shoppingList/' + key), {
+            dropdownShown: !dropdown
+        })
+    }
+
     function checkItem(key, checked) {
-        // let loc = ref(database, `shoppingList/${key}`)
         update(ref(database, 'shoppingList/' + key), {
             checked: !checked
         })
-        
-        // console.log(loc)
     }
 
     function removeItem(key) {
@@ -99,11 +107,15 @@ export default function MainContent() {
     function handleClick() {
         let key = nanoid();
 
-        set(ref(database, "shoppingList/" + key), {
-            name: value,
-            key: key,
-            checked: false
-        })
+        if (value.length != 0 && value.length <= 25)
+            set(ref(database, "shoppingList/" + key), {
+                name: value,
+                key: key,
+                checked: false,
+                dropdownShown: false
+            })
+        else
+            console.log("Emtpy field!")
         setValue("")
     }
     return (
