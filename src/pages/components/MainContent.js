@@ -1,5 +1,5 @@
 import React from "react"
-import { nanoid } from 'nanoid'
+// import { nanoid } from 'nanoid'
 
 import 'firebase/firestore'
 import 'firebase/auth'
@@ -10,6 +10,7 @@ import { getDatabase, ref, push, onValue, remove, set, update } from "firebase/d
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons"
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons"
+// import { increment } from "firebase/firestore"
 
 
 export default function MainContent() {
@@ -61,11 +62,10 @@ export default function MainContent() {
                     </div>
                 </section>}
 
-
             <div id="list--dropdown--button">
-                {list.dropdownShown ? 
-                <FontAwesomeIcon icon={faCaretUp} onClick={() => showDropdown(list.key, list.dropdownShown)} /> : 
-                <FontAwesomeIcon icon={faCaretDown} onClick={() => showDropdown(list.key, list.dropdownShown)} /> }
+                {list.dropdownShown ?
+                    <FontAwesomeIcon icon={faCaretUp} onClick={() => showDropdown(list.key, list.dropdownShown)} /> :
+                    <FontAwesomeIcon icon={faCaretDown} onClick={() => showDropdown(list.key, list.dropdownShown)} />}
             </div>
         </li>
     )
@@ -74,7 +74,6 @@ export default function MainContent() {
         onValue(shoppingListDB, function (myDBList) {
             if (myDBList.exists()) {
                 setHasValue(myDBList.exists())
-
                 let ls = Object.values(myDBList.val())
                 setShopList(ls)
             }
@@ -90,7 +89,7 @@ export default function MainContent() {
     }
 
     function checkItem(key, checked) {
-        update(ref(database, 'shoppingList/' + key), {
+        update(ref(database, `shoppingList/` + key), {
             checked: !checked
         })
     }
@@ -105,18 +104,34 @@ export default function MainContent() {
     }
 
     function handleClick() {
-        let key = nanoid();
+        // let key = nanoid();
 
+        // set(ref(database, "shoppingList/"+ key), {
+        // name: value,
+        // key: key,
+        // checked: false,
+        // dropdownShown: false
+        // })
         if (value.length != 0 && value.length <= 25)
-            set(ref(database, "shoppingList/" + key), {
+            push(ref(database, `shoppingList/`), {
                 name: value,
-                key: key,
+                key: "",
                 checked: false,
                 dropdownShown: false
             })
+
         else
             console.log("Emtpy field!")
         setValue("")
+
+        onValue(shoppingListDB, function (myDBList) {
+            if (myDBList.exists()) {
+                let key = Object.keys(myDBList.val())
+                update(ref(database, 'shoppingList/' + key[key.length - 1]), {
+                    key: key[key.length - 1]
+                })
+            }
+        })
     }
     return (
         <div className="main--container">
