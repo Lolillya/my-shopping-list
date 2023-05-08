@@ -1,5 +1,4 @@
 import React from "react"
-// import { nanoid } from 'nanoid'
 
 import 'firebase/firestore'
 import 'firebase/auth'
@@ -10,7 +9,6 @@ import { getDatabase, ref, push, onValue, remove, set, update } from "firebase/d
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons"
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons"
-// import { increment } from "firebase/firestore"
 
 
 export default function MainContent() {
