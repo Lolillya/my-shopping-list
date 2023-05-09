@@ -48,23 +48,29 @@ export default function MainContent() {
             </section>
 
             {list.dropdownShown &&
-                <section className="alt--sidenote--container">
+                <section className="alt--sidenote--container" style={{ paddingBottom: "5px" }}>
                     <div id="alt">
-                        <h5 style={{ marginBottom: "10px" }}>Alternatives</h5>
-                        <h6 style={{ margin: 0 }}>No alternatives listed.</h6>
+                        <h5 style={{ marginBottom: "10px", paddingLeft: "10px", marginTop: "5px" }}>Alternatives</h5>
+                        <section style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                            <h6 style={{ margin: 0 }}>No alternatives listed </h6>
+                            <button>+</button>
+                        </section>
                     </div>
 
-                    <div id="sidenote">
-                        <h5 style={{ marginBottom: "10px" }}>Sidenotes</h5>
-                        <h6 style={{ margin: 0 }}>No sidenotes posted</h6>
+                    <div id="sidenote" style={{ paddingRight: "10px" }}>
+                        <h5 style={{ marginBottom: "10px", paddingLeft: "10px", marginTop: "5px" }}>Sidenotes</h5>
+                        <section style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                            <h6 style={{ margin: 0 }}>No sidenotes posted </h6>
+                            <button>+</button>
+                        </section>
                     </div>
                 </section>}
 
-            <div id="list--dropdown--button">
+            {/* <div id="list--dropdown--button">
                 {list.dropdownShown ?
                     <FontAwesomeIcon icon={faCaretUp} onClick={() => showDropdown(list.key, list.dropdownShown)} /> :
                     <FontAwesomeIcon icon={faCaretDown} onClick={() => showDropdown(list.key, list.dropdownShown)} />}
-            </div>
+            </div> */}
         </li>
     )
 
@@ -102,20 +108,12 @@ export default function MainContent() {
     }
 
     function handleClick() {
-        // let key = nanoid();
-
-        // set(ref(database, "shoppingList/"+ key), {
-        // name: value,
-        // key: key,
-        // checked: false,
-        // dropdownShown: false
-        // })
         if (value.length != 0 && value.length <= 25)
             push(ref(database, `shoppingList/`), {
                 name: value,
                 key: "",
                 checked: false,
-                dropdownShown: false
+                dropdownShown: true
             })
 
         else
@@ -144,6 +142,8 @@ export default function MainContent() {
                 <input id={"input-field"} type={"text"} placeholder={"Enter item"} onChange={handleChange} value={value}></input>
                 <button id={"add-button"} onClick={handleClick}>Add to Cart</button>
             </section>
+
+
         </div>
     )
 }
