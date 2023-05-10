@@ -24,9 +24,12 @@ export default function App() {
   }
 
   function msgWindow() {
-    setMainActive(prevState => {
-      return !prevState
-    })
+    setMainActive(false)
+    onClickSettings()
+  }
+
+  function returnHome() {
+    setMainActive(true)
     onClickSettings()
   }
 
@@ -34,8 +37,8 @@ export default function App() {
     <main>
       <div className='container'>
 
-        <Header onClickSettings={onClickSettings} />
-        {toggleSettings && <Sidebar handleChange={handleChange} msgWindow={msgWindow}/>}
+        <Header onClickSettings={onClickSettings} getName={name} handleChange={handleChange}/>
+        {toggleSettings && <Sidebar  msgWindow={msgWindow} returnHome={returnHome}/>}
 
         {mainActive && <MainContent/>}
         {!mainActive && <Messaging getName={name}/>}

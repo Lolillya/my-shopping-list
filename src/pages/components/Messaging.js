@@ -26,28 +26,33 @@ export default function Messaging(props) {
 
     const [messages, setMessages] = React.useState([])
     const [value, setValue] = React.useState("")
+    const nullRef = React.useRef(null)
 
     const messageElements = messages.map(msg =>
-        <div>
+        <div className="msg--cont--wrap">
             <p style={{ margin: 0, paddingTop: "2px", paddingBottom: "2px" }}>{msg.msg}</p>
         </div>
     )
 
     function handleClick(event) {
+        let userName = "Unknown User"
+        if(props.getName.length != 0)
+        userName = props.getName;
+
         if (value.length != 0)
             push(ref(database, `Messages`), {
-                msg: value
+                msg: userName + " : " +  value
             })
 
         else
             console.log("Empty Field!")
         setValue("")
+        nullRef.current.value = ""
         event.preventDefault()
     }
 
     function handleChange(event) {
         setValue(event.target.value)
-        console.log(value)
     }
 
     React.useEffect(() => {
@@ -56,8 +61,16 @@ export default function Messaging(props) {
                 let msg = Object.values(messages.val())
                 setMessages(msg)
             }
+            else
+                setMessages([])
         })
-    })
+
+    }, [])
+
+    
+    // handleReset = () => {
+        
+    // }
 
 
     return (
@@ -66,10 +79,9 @@ export default function Messaging(props) {
                 {messageElements}
             </section>
 
-            <form onSubmit={handleClick}>
+            <form onSubmit={handleClick} autoComplete="off">
                 <FontAwesomeIcon icon={faPaperPlane} id="msg--send--icon" type="submit" onClick={handleClick} />
-                <input id="msg--input" value={value} onChange={handleChange} />
-                {/* </textarea> */}
+                <input id="msg--input" value={value} onChange={handleChange} ref={nullRef} autoComplete="off"/>
             </form>
         </div>
     )
