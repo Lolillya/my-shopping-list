@@ -10,16 +10,29 @@ import Image from "next/image"
 import profilePic from "../../../public/Profile_pic.png"
 
 export default function Sidebar(props) {
+    const ref = React.useRef(null)
+    const { onClickOutside } = props
+
+    React.useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (ref.current && !ref.current.contains(event.target))
+                props.toggleSettings()
+        }
+        document.addEventListener('click', handleClickOutside, true)
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true)
+        }
+    }, [onClickOutside])
 
     return (
-        <section className="Sidebar--container">
+        <section className="Sidebar--container" ref={ref}>
             <div className="Sidebar">
                 <div>
-                    <Image src={profilePic} style={{width: "150px", height: "auto"}}/>
+                    <Image src={profilePic} style={{ width: "150px", height: "auto" }} />
                 </div>
 
                 <div id="sidebar--ico" onClick={props.returnHome}>
-                    <h4 style={{margin: 0}}>Home</h4>
+                    <h4 style={{ margin: 0 }}>Home</h4>
                     <FontAwesomeIcon icon={faHouse} />
                 </div>
 

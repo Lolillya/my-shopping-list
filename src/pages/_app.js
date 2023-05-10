@@ -37,8 +37,8 @@ export default function App() {
     <main>
       <div className='container'>
 
-        <Header onClickSettings={onClickSettings} getName={name} handleChange={handleChange}/>
-        {toggleSettings && <Sidebar  msgWindow={msgWindow} returnHome={returnHome}/>}
+        <Header onClickSettings={onClickSettings} getName={name} handleChange={handleChange} />
+        {toggleSettings && <Sidebar  msgWindow={msgWindow} returnHome={returnHome} toggleSettings={onClickSettings}/>}
 
         {mainActive && <MainContent/>}
         {!mainActive && <Messaging getName={name}/>}
