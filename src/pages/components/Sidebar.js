@@ -28,7 +28,7 @@ export default function Sidebar(props) {
         <section className="Sidebar--container" ref={ref}>
             <div className="Sidebar">
                 <div>
-                    <Image src={profilePic} style={{ width: "150px", height: "auto" }} />
+                    <Image src={profilePic} style={{ width: "150px", height: "auto" }} alt="app_logo"/>
                 </div>
 
                 <div id="sidebar--ico" onClick={props.returnHome}>

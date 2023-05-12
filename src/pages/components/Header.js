@@ -8,12 +8,13 @@ export default function Header(props) {
 
     return (
         <header className="header--container">
-            <div style={{display: "flex", alignItems: "center", gap: "10px"}}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <FontAwesomeIcon icon={faBars}
                     onClick={props.onClickSettings} />
 
                 {/* <h4 style={{margin: 0}}>{props.getName}</h4> */}
-                <input id="userName" onChange={props.handleChange} value={props.getName.length != 0 ? props.getName : "Unknown User"}/>
+                <input id="userName" placeholder="Enter Name" onChange={props.handleChange} value={props.getName} />
+
             </div>
             <Image src={appIcon} id="app--icon--header" />
         </header>

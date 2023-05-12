@@ -12,7 +12,7 @@ export default function App() {
 
   const [toggleSettings, setToggleSettings] = React.useState(false)
   const [mainActive, setMainActive] = React.useState(true)
-  const [name, setName] = React.useState("")
+  const [name, setName] = React.useState("Unknown User")
 
   function onClickSettings() {
     setToggleSettings(prevState => {

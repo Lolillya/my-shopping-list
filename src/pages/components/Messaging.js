@@ -29,19 +29,20 @@ export default function Messaging(props) {
     const nullRef = React.useRef(null)
 
     const messageElements = messages.map(msg =>
-        <div className="msg--cont--wrap">
+        <div className="msg--cont--wrap" key={msg.index}>
             <p style={{ margin: 0, paddingTop: "2px", paddingBottom: "2px" }}>{msg.msg}</p>
         </div>
+
     )
 
     function handleClick(event) {
         let userName = "Unknown User"
-        if(props.getName.length != 0)
-        userName = props.getName;
+        if (props.getName.length != 0)
+            userName = props.getName;
 
         if (value.length != 0)
             push(ref(database, `Messages`), {
-                msg: userName + " : " +  value
+                msg: userName + " : " + value
             })
 
         else
@@ -67,22 +68,22 @@ export default function Messaging(props) {
 
     }, [])
 
-    
-    // handleReset = () => {
-        
-    // }
-
 
     return (
         <div className="msg--container">
             <section id="msg--output">
-                {messageElements}
+                <ul style={{ overflow: "scroll", overflowX: "hidden", margin: 0, padding: 0 }}>
+
+                    {messageElements}
+                </ul>
             </section>
 
-            <form onSubmit={handleClick} autoComplete="off">
-                <FontAwesomeIcon icon={faPaperPlane} id="msg--send--icon" type="submit" onClick={handleClick} />
-                <input id="msg--input" value={value} onChange={handleChange} ref={nullRef} autoComplete="off"/>
-            </form>
+            <section style={{ position: "relative" }}>
+                <form onSubmit={handleClick} autoComplete="off">
+                    <FontAwesomeIcon icon={faPaperPlane} id="msg--send--icon" type="submit" onClick={handleClick} />
+                    <input placeholder="enter message" id="msg--input" value={value} onChange={handleChange} ref={nullRef} autoComplete="off" />
+                </form>
+            </section>
         </div>
     )
 }

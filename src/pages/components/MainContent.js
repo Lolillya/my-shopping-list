@@ -107,7 +107,7 @@ export default function MainContent() {
         setValue(event.target.value)
     }
 
-    function handleClick() {
+    function handleClick(event) {
         if (value.length != 0 && value.length <= 25)
             push(ref(database, `shoppingList/`), {
                 name: value,
@@ -128,7 +128,10 @@ export default function MainContent() {
                 })
             }
         })
+
+        event.preventDefault()
     }
+
     return (
         <div className="main--container">
             <section className='shop-list--container'>
@@ -138,10 +141,12 @@ export default function MainContent() {
                 {!hasValue && <h3 style={{ justifyContent: 'center' }}>No items added</h3>}
             </section>
 
-            <section className='input--container'>
-                <input id={"input-field"} type={"text"} placeholder={"Enter item"} onChange={handleChange} value={value}></input>
-                <button id={"add-button"} onClick={handleClick}>Add to Cart</button>
-            </section>
+            <form onSubmit={handleClick}>
+                <section className='input--container'>
+                    <input id={"input-field"} type={"text"} placeholder={"Enter item"} onChange={handleChange} value={value}></input>
+                    <button id={"add-button"} onClick={handleClick}>Add to Cart</button>
+                </section>
+            </form>
 
 
         </div>
