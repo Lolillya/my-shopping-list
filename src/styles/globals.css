@@ -18,7 +18,6 @@ main {
   justify-content: center;
   flex-direction: column;
   max-width: 440px;
-  /* max-height: auto; */
   width: 100%;
   height: 100%;
 }
@@ -72,7 +71,6 @@ main {
   justify-content: center;
   overflow: scroll;
   overflow: hidden;
-  scrollbar-width: none;
   height: 100vh;
   width: 100%;
 }
@@ -109,6 +107,12 @@ main {
   margin: 0;
   padding-top: 5px;
   padding-left: 10px;
+  
+  animation: forwards;
+  animation-duration: 3s;
+  animation-name: slidein;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 #itembox--container {
@@ -183,7 +187,10 @@ main {
   border: none;
   background: transparent;
   font-family: 'Rubik', sans-serif;
-  font-size: 15px;
+  font-size: 12px;
+  width: 65px;
+  margin: 0;
+  padding: 0;
 }
 
 #userName:focus {
@@ -192,34 +199,27 @@ main {
 
 .Sidebar--container {
   position: relative;
-
   margin: 0;
   max-width: 20vh;
   width: 100%;
   height: 100%;
-
-  /* background-color: #3e7327; */
 }
 
 .Sidebar {
   margin: 0;
-  /* padding-left: 10px; */
   display: flex;
   flex-direction: column;
   position: absolute;
-  
   background-color: #eef0f4;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
   gap: 5px;
   font-family: 'Rubik', sans-serif;
-  /* overflow: visible; */
 }
 
 .main--container {
   display: flex;
   flex-direction: column;
   max-height: 80vh;
-  /* max-width: 10vh; */
 }
 
 .alt--sidenote--container {
@@ -232,29 +232,28 @@ main {
 .msg--container {
   display: flex;
   flex-direction: column;
-  max-height: 80vh;
-  max-width: 60vh;
-  border-left: 1px solid;
-  border-right: 1px solid;
+  max-height: 75vh;
 }
 
 #msg--output {
-  max-height: 75vh;
-  display: flex;
-  flex-direction: column;
   justify-content: end;
-  height: 120vh;
-  margin-left: 20px;
-  overflow: hidden;
+  flex-direction: column;
+  display: flex;
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 100vh;
+  width: 100%;
 }
 
 #msg--input {
+  position: absolute;
   padding: 5px 5px 5px 5px;
-  max-width: 57vh;
-  width: 100%;
+  width: 95%;
   height: 50px;
   text-align: left;
   border: none;
+  border-radius: 10px 10px 10px 10px;
 }
 
 #list--dropdown--button {
@@ -266,8 +265,6 @@ main {
 #app--icon--header {
   width: auto;
   height: 65px;
-  padding-right: 15px;
-  
 }
 
 #sidebar--ico {
@@ -282,15 +279,16 @@ main {
 
 #msg--send--icon {
   position: absolute;
-  right: 0;
-  margin-bottom: 20px;
-  margin-right: 15px;
-  padding-top: 23px;
+  /* right: 0; */
+  bottom: 0;
+  margin-top: 100px;
   width: auto;
   height: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 .msg--cont--wrap {
-  display: block;
+  /* display: block; */
   font-family: 'Rubik', sans-serif;
 }

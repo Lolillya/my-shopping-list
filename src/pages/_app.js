@@ -12,7 +12,7 @@ export default function App() {
 
   const [toggleSettings, setToggleSettings] = React.useState(false)
   const [mainActive, setMainActive] = React.useState(true)
-  const [name, setName] = React.useState("Unknown User")
+  const [name, setName] = React.useState("")
 
   function onClickSettings() {
     setToggleSettings(prevState => {
@@ -25,19 +25,19 @@ export default function App() {
 
   function msgWindow() {
     setMainActive(false)
-    onClickSettings()
+    // onClickSettings()
   }
 
   function returnHome() {
     setMainActive(true)
-    onClickSettings()
+    // onClickSettings()
   }
 
   return (
     <main>
       <div className='container'>
 
-        <Header onClickSettings={onClickSettings} getName={name} handleChange={handleChange} />
+        <Header onClickSettings={onClickSettings} getName={name} handleChange={handleChange} msgWindow={msgWindow} returnHome={returnHome}/>
         {toggleSettings && <Sidebar  msgWindow={msgWindow} returnHome={returnHome} toggleSettings={onClickSettings}/>}
 
         {mainActive && <MainContent/>}

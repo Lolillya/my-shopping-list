@@ -72,7 +72,7 @@ export default function Messaging(props) {
     return (
         <div className="msg--container">
             <section id="msg--output">
-                <ul style={{ overflow: "scroll", overflowX: "hidden", margin: 0, padding: 0 }}>
+                <ul style={{ overflowY: "scroll", margin: 0, padding: 0 }}>
 
                     {messageElements}
                 </ul>
@@ -80,7 +80,7 @@ export default function Messaging(props) {
 
             <section style={{ position: "relative" }}>
                 <form onSubmit={handleClick} autoComplete="off">
-                    <FontAwesomeIcon icon={faPaperPlane} id="msg--send--icon" type="submit" onClick={handleClick} />
+                    {/* <FontAwesomeIcon icon={faPaperPlane} id="msg--send--icon" type="submit" onClick={handleClick} /> */}
                     <input placeholder="enter message" id="msg--input" value={value} onChange={handleChange} ref={nullRef} autoComplete="off" />
                 </form>
             </section>

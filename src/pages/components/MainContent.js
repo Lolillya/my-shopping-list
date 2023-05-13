@@ -32,6 +32,8 @@ export default function MainContent() {
     const [shopList, setShopList] = React.useState([])
     const [hasValue, setHasValue] = React.useState()
 
+    // const 
+
     const shopListElements = shopList.map(list =>
         <li id='list' key={list.key} style={list.checked ? { backgroundColor: "#b4f7a3" } : {}}>
 
@@ -133,12 +135,12 @@ export default function MainContent() {
     }
 
     return (
-        <div className="main--container">
-            <section className='shop-list--container'>
+        <div className="main--container" >
+            <section className='shop-list--container' style={hasValue ? {} : {display: "flex"}}>
                 <ul className='shop-list'>
                     {hasValue && shopListElements}
                 </ul>
-                {!hasValue && <h3 style={{ justifyContent: 'center' }}>No items added</h3>}
+                {!hasValue && <h3 style={{ justifyContent: 'center', alignSelf: "center" }}>No items added</h3>}
             </section>
 
             <form onSubmit={handleClick}>
